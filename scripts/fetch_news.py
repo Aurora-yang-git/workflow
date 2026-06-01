@@ -10,10 +10,18 @@ from datetime import datetime, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-NEWS_API_KEY = os.environ["NEWS_API_KEY"]
-GMAIL_USER = os.environ["GMAIL_USER"]
-GMAIL_APP_PASSWORD = os.environ["GMAIL_APP_PASSWORD"]
-RECIPIENT_EMAIL = os.environ.get("RECIPIENT_EMAIL") or GMAIL_USER
+NEWS_API_KEY = os.environ["NEWS_API_KEY"].strip()
+GMAIL_USER = os.environ["GMAIL_USER"].strip()
+GMAIL_APP_PASSWORD = os.environ["GMAIL_APP_PASSWORD"].strip()
+RECIPIENT_EMAIL = (os.environ.get("RECIPIENT_EMAIL") or GMAIL_USER).strip()
+
+if not GMAIL_USER:
+    raise ValueError("GMAIL_USER secret is empty")
+if not RECIPIENT_EMAIL:
+    raise ValueError("RECIPIENT_EMAIL is empty and GMAIL_USER fallback is also empty")
+
+print(f"Sending from: {GMAIL_USER}")
+print(f"Sending to:   {RECIPIENT_EMAIL}")
 
 TOPICS = [
     {"label": "Tech & AI",        "q": "artificial intelligence OR technology OR software", "category": "technology"},
