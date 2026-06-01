@@ -13,7 +13,7 @@ from email.mime.text import MIMEText
 NEWS_API_KEY = os.environ["NEWS_API_KEY"]
 GMAIL_USER = os.environ["GMAIL_USER"]
 GMAIL_APP_PASSWORD = os.environ["GMAIL_APP_PASSWORD"]
-RECIPIENT_EMAIL = os.environ.get("RECIPIENT_EMAIL", GMAIL_USER)
+RECIPIENT_EMAIL = os.environ.get("RECIPIENT_EMAIL") or GMAIL_USER
 
 TOPICS = [
     {"label": "Tech & AI",        "q": "artificial intelligence OR technology OR software", "category": "technology"},
