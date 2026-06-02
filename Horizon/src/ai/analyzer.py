@@ -51,7 +51,10 @@ class ContentAnalyzer:
                 try:
                     await self._analyze_item(item)
                 except Exception as e:
-                    print(f"Error analyzing item {item.id}: {e}")
+                    # Unwrap tenacity RetryError to show the real cause
+                    cause = getattr(e, "last_attempt", None)
+                    real_exc = cause.exception() if cause else e
+                    print(f"Error analyzing item {item.id}: {real_exc!r}")
                     item.ai_score = 0.0
                     item.ai_reason = "Analysis failed"
                     item.ai_summary = item.title
