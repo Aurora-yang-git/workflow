@@ -1,0 +1,101 @@
+{
+  "version": "1.0",
+  "ai": {
+    "provider": "minimax",
+    "model": "MiniMax-Text-01",
+    "api_key_env": "MINIMAX_API_KEY",
+    "temperature": 0.3,
+    "max_tokens": 4096,
+    "throttle_sec": 0,
+    "analysis_concurrency": 1,
+    "enrichment_concurrency": 1
+  },
+  "sources": {
+    "github": [],
+    "hackernews": {
+      "enabled": true,
+      "fetch_top_stories": 20,
+      "min_score": 100
+    },
+    "rss": [
+      {
+        "name": "Simon Willison",
+        "url": "https://simonwillison.net/atom/everything/",
+        "enabled": true,
+        "category": "ai-tools"
+      },
+      {
+        "name": "MIT Technology Review",
+        "url": "https://www.technologyreview.com/feed/",
+        "enabled": true,
+        "category": "tech-ai"
+      },
+      {
+        "name": "NASA News",
+        "url": "https://www.nasa.gov/rss/dyn/breaking_news.rss",
+        "enabled": true,
+        "category": "science"
+      },
+      {
+        "name": "BBC World News",
+        "url": "https://feeds.bbci.co.uk/news/world/rss.xml",
+        "enabled": true,
+        "category": "world"
+      },
+      {
+        "name": "Reuters Top News",
+        "url": "https://feeds.reuters.com/reuters/topNews",
+        "enabled": true,
+        "category": "world"
+      }
+    ],
+    "reddit": {
+      "enabled": true,
+      "subreddits": [
+        {
+          "subreddit": "MachineLearning",
+          "enabled": true,
+          "sort": "hot",
+          "time_filter": "day",
+          "fetch_limit": 15,
+          "min_score": 50
+        },
+        {
+          "subreddit": "science",
+          "enabled": true,
+          "sort": "hot",
+          "time_filter": "day",
+          "fetch_limit": 10,
+          "min_score": 100
+        },
+        {
+          "subreddit": "worldnews",
+          "enabled": true,
+          "sort": "hot",
+          "time_filter": "day",
+          "fetch_limit": 10,
+          "min_score": 200
+        }
+      ],
+      "users": [],
+      "fetch_comments": 3
+    },
+    "newsapi": {
+      "enabled": true,
+      "api_key_env": "NEWS_API_KEY",
+      "categories": ["technology", "science", "general"],
+      "language": "en",
+      "page_size": 20
+    },
+    "ossinsight": {
+      "enabled": false
+    }
+  },
+  "filtering": {
+    "ai_score_threshold": 6.0,
+    "time_window_hours": 24
+  },
+  "webhook": {
+    "enabled": false
+  }
+}
