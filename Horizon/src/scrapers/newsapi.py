@@ -42,13 +42,20 @@ class NewsAPIScraper(BaseScraper):
     async def _fetch_category(
         self, api_key: str, category: str, since: datetime
     ) -> List[ContentItem]:
+        # Use /everything with explicit date range so recent articles aren't
+        # filtered out — top-headlines often returns articles published before
+        # the `since` window.
+        from_date = since.strftime("%Y-%m-%dT%H:%M:%S")
         params = {
-            "category": category,
+            "q": category,
             "language": self.cfg.language,
             "pageSize": str(self.cfg.page_size),
+            "sortBy": "publishedAt",
+            "from": from_date,
             "apiKey": api_key,
         }
-        response = await self.client.get(_BASE_URL, params=params)
+        url = "https://newsapi.org/v2/everything"
+        response = await self.client.get(url, params=params)
         response.raise_for_status()
         articles = response.json().get("articles", [])
 
@@ -61,9 +68,6 @@ class NewsAPIScraper(BaseScraper):
                 )
             except (ValueError, AttributeError):
                 published_at = datetime.now(timezone.utc)
-
-            if published_at < since:
-                continue
 
             url = article.get("url") or ""
             if not url:

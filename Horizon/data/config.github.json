@@ -43,8 +43,8 @@
         "category": "world"
       },
       {
-        "name": "Reuters Top News",
-        "url": "https://feeds.reuters.com/reuters/topNews",
+        "name": "Reuters World News",
+        "url": "https://feeds.reuters.com/reuters/worldNews",
         "enabled": true,
         "category": "world"
       }
