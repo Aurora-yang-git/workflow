@@ -8,7 +8,8 @@
     "max_tokens": 4096,
     "throttle_sec": 0,
     "analysis_concurrency": 1,
-    "enrichment_concurrency": 1
+    "enrichment_concurrency": 1,
+    "languages": ["en", "zh"]
   },
   "sources": {
     "github": [],
@@ -92,7 +93,7 @@
     }
   },
   "filtering": {
-    "ai_score_threshold": 6.0,
+    "ai_score_threshold": 7.5,
     "time_window_hours": 24
   },
   "webhook": {
