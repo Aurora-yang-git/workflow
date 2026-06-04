@@ -1,0 +1,170 @@
+[
+  {
+    "title": "Elixir v1.20 Introduces Gradual Typing",
+    "url": "https://elixir-lang.org/blog/2026/06/03/elixir-v1-20-0-released/",
+    "entities": [
+      "elixir",
+      "gradual typing",
+      "programming languages",
+      "functional programming"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "SWOT satellite accuracy boosted 60% by predicting 'unpredictable' tides",
+    "url": "https://www.reddit.com/r/science/comments/1tvyjzl/we_improved_nasas_swot_ocean_satellite/",
+    "entities": [
+      "climate science",
+      "satellite technology",
+      "oceanography",
+      "nasa",
+      "machine learning"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "AI Use Linked to Rising Failure Rates in Berkeley CS Classes",
+    "url": "https://www.dailycal.org/news/campus/academics/failing-grades-soar-as-professors-see-greater-ai-usage-dwindling-math-skills-in-uc-berkeley/article_16fad0bf-02cb-4b8c-8d88-888ffd9f8608.html",
+    "entities": [
+      "ai in education",
+      "computer science",
+      "academic integrity",
+      "grade inflation",
+      "standardized testing"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "Google Releases Gemma 4 12B with Encoder-Free Multimodal Design",
+    "url": "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemma-4-12b/",
+    "entities": [
+      "ai/ml",
+      "multimodal",
+      "google",
+      "open-source",
+      "model architecture"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "Software Engineer Shares Anti-NMDA Receptor Encephalitis Diagnosis",
+    "url": "https://burntsushi.net/encephalitis/",
+    "entities": [
+      "autoimmune disease",
+      "neurology",
+      "rare disease",
+      "healthcare",
+      "personal story"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "Uber Caps AI Tool Spending at $1,500/Month per Tool",
+    "url": "https://simonwillison.net/2026/Jun/3/uber-caps-usage/#atom-everything",
+    "entities": [
+      "ai",
+      "cost management",
+      "enterprise",
+      "coding agents",
+      "uber"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "DaVinci Resolve 21 Adds Photo Management and Motion Graphics",
+    "url": "https://www.blackmagicdesign.com/products/davinciresolve/whatsnew",
+    "entities": [
+      "video editing",
+      "davinci resolve",
+      "ai",
+      "photo management",
+      "motion graphics"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "Espressif ESP32-S31: RISC-V with SIMD and BitScrambler",
+    "url": "https://www.espressif.com/en/products/socs/esp32-s31",
+    "entities": [
+      "esp32-s31",
+      "risc-v",
+      "embedded systems",
+      "simd",
+      "rust"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "Let's Encrypt Plans Post-Quantum TLS Certificates",
+    "url": "https://letsencrypt.org/2026/06/03/pq-certs",
+    "entities": [
+      "quantum computing",
+      "tls",
+      "certificate authority",
+      "cryptography",
+      "post-quantum"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "NeurIPS Desk Rejects Papers Using Uncalibrated AI Detector",
+    "url": "https://www.reddit.com/r/MachineLearning/comments/1tvwctd/neurips_used_uncalibrated_ai_detector_for_desk/",
+    "entities": [
+      "ai ethics",
+      "academic publishing",
+      "neurips",
+      "ai detection",
+      "methodology"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "TorchDAE: PyTorch Library for Differentiable DAE Simulation",
+    "url": "https://www.reddit.com/r/MachineLearning/comments/1tvn4ux/torchdae_implicit_dae_solvers_with_index/",
+    "entities": [
+      "pytorch",
+      "differential algebraic equations",
+      "scientific machine learning",
+      "differentiable simulation",
+      "numerical methods"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "Top AI models fail classic Stroop test",
+    "url": "https://www.reddit.com/r/science/comments/1tvptdu/new_study_reveals_top_ai_models_gpt4o_claude_35/",
+    "entities": [
+      "ai",
+      "cognitive science",
+      "ai safety",
+      "reasoning",
+      "psychology"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "Semaglutide Slows Biological Aging in HIV Patients",
+    "url": "https://www.reddit.com/r/science/comments/1tvoc6b/semaglutide_a_glp1_weight_loss_drug_slowed/",
+    "entities": [
+      "semaglutide",
+      "aging",
+      "epigenetics",
+      "clinical trial",
+      "hiv"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  }
+]
