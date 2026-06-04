@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
-      contents: read
+      contents: write
       issues: write
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -19,6 +19,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
+        with:
+          # Fetch full history so we can push the memory.json commit
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -48,4 +51,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           SUMMARY_DIR: Horizon/data/summaries
+          DINGTALK_WEBHOOK: ${{ secrets.DINGTALK_WEBHOOK }}
         run: python scripts/post_issue.py
+
+      - name: Update news memory
+        continue-on-error: true
+        env:
+          SUMMARY_DIR: Horizon/data/summaries
+        run: |
+          ISSUE_URL=$(cat issue_url.txt 2>/dev/null || echo "")
+          export ISSUE_URL
+          python scripts/memory_manager.py

@@ -49,3 +49,8 @@ packages = ["src"]
 minversion = "8.0"
 addopts = "-q"
 testpaths = ["tests"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+]
