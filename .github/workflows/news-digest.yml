@@ -46,6 +46,11 @@ jobs:
           NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
         run: uv run horizon --hours 24
 
+      - name: Deduplicate summaries
+        env:
+          SUMMARY_DIR: Horizon/data/summaries
+        run: python scripts/memory_manager.py --dedup
+
       - name: Post summary as GitHub Issue
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -55,6 +60,7 @@ jobs:
         run: python scripts/post_issue.py
 
       - name: Update news memory
+        id: memory
         continue-on-error: true
         env:
           SUMMARY_DIR: Horizon/data/summaries
@@ -62,3 +68,10 @@ jobs:
           ISSUE_URL=$(cat issue_url.txt 2>/dev/null || echo "")
           export ISSUE_URL
           python scripts/memory_manager.py
+
+      - name: Report memory step outcome
+        if: steps.memory.outcome == 'failure'
+        run: |
+          echo "::warning::Memory update failed — story threading may be stale. Check the 'Update news memory' step log."
+          echo "## ⚠️ Memory Update Failed" >> $GITHUB_STEP_SUMMARY
+          echo "Story threading will not reflect today's items. Check the **Update news memory** step for details." >> $GITHUB_STEP_SUMMARY
