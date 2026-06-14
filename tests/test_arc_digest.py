@@ -3,6 +3,7 @@ import json
 import os
 import sys
 import urllib.error
+from datetime import datetime, timezone, timedelta
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -22,17 +23,23 @@ from arc_digest import (
 # Helpers
 # ---------------------------------------------------------------------------
 
+def _days_ago(n: int) -> str:
+    return (datetime.now(timezone.utc).date() - timedelta(days=n)).isoformat()
+
+
+# All entries within the current 7-day window so arc_digest.main() sees them.
+# Uses relative dates so tests don't go stale as time passes.
 FAKE_ENTRIES = [
-    {"date": "2026-06-06", "title": "OpenAI announces GPT-5", "url": "https://a.com/1"},
-    {"date": "2026-06-07", "title": "Developers frustrated by GPT-5 pricing", "url": "https://a.com/2"},
-    {"date": "2026-06-08", "title": "GPT-5 adoption exceeds expectations", "url": "https://a.com/3"},
-    {"date": "2026-06-09", "title": "EU regulators scrutinize GPT-5 rollout", "url": "https://a.com/4"},
-    {"date": "2026-06-10", "title": "OpenAI cuts GPT-5 price following backlash", "url": "https://a.com/5"},
-    {"date": "2026-06-06", "title": "China restricts foreign AI models", "url": "https://b.com/1"},
-    {"date": "2026-06-08", "title": "ByteDance launches domestic GPT-5 rival", "url": "https://b.com/2"},
-    {"date": "2026-06-09", "title": "Alibaba follows with cloud AI push", "url": "https://b.com/3"},
-    {"date": "2026-06-07", "title": "Climate summit opens in Geneva", "url": "https://c.com/1"},
-    {"date": "2026-06-10", "title": "Summit concludes with emissions pledge", "url": "https://c.com/2"},
+    {"date": _days_ago(5), "title": "OpenAI announces GPT-5", "url": "https://a.com/1"},
+    {"date": _days_ago(4), "title": "Developers frustrated by GPT-5 pricing", "url": "https://a.com/2"},
+    {"date": _days_ago(3), "title": "GPT-5 adoption exceeds expectations", "url": "https://a.com/3"},
+    {"date": _days_ago(2), "title": "EU regulators scrutinize GPT-5 rollout", "url": "https://a.com/4"},
+    {"date": _days_ago(1), "title": "OpenAI cuts GPT-5 price following backlash", "url": "https://a.com/5"},
+    {"date": _days_ago(5), "title": "China restricts foreign AI models", "url": "https://b.com/1"},
+    {"date": _days_ago(3), "title": "ByteDance launches domestic GPT-5 rival", "url": "https://b.com/2"},
+    {"date": _days_ago(2), "title": "Alibaba follows with cloud AI push", "url": "https://b.com/3"},
+    {"date": _days_ago(4), "title": "Climate summit opens in Geneva", "url": "https://c.com/1"},
+    {"date": _days_ago(1), "title": "Summit concludes with emissions pledge", "url": "https://c.com/2"},
 ]
 
 

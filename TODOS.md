@@ -29,3 +29,13 @@
 - [ ] **`actions/checkout@v6` in news-digest.yml** — The daily workflow uses `actions/checkout@v6` which does not exist in the GitHub Actions marketplace (latest stable is `@v4`). Fix: change `news-digest.yml` line 21 from `@v6` to `@v4`. Low risk, no behavior change.
 
 - [ ] **Arc quality feedback loop** — When the minimum-items guard fires 3+ consecutive weeks, emit a `::warning::` annotation suggesting the Horizon pipeline may have failed. Currently silent degradation.
+
+## From Q&A Context Grounding Autoplan (2026-06-14)
+
+- [ ] **Multi-issue Q&A memory** — Answer questions using context from this week's AND past digest issues. Requires fetching multiple issue bodies or reading `memory.json`. Deferred: current single-digest approach covers 95% of questions.
+
+- [ ] **DingTalk Q&A reply** — Support Q&A via DingTalk (not just GitHub Issue comments). Requires a DingTalk webhook inbound listener. Significant infra change; defer until DingTalk engagement warrants it.
+
+- [ ] **Weekly Arc Q&A** — Extend Q&A responder to answer questions on `Weekly Arc` issues too. Small change: add `contains(github.event.issue.title, 'Weekly Arc')` to the workflow condition. Defer until arc issues have comment volume.
+
+- [ ] **Per-article URL citation** — Include the source article URL in Q&A replies. Requires storing URLs in the issue body (currently not present in structured form). Revisit when digest format includes per-article links.
