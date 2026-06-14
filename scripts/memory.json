@@ -1,197 +1,521 @@
 [
   {
+    "title": "Elixir v1.20 Introduces Gradual Typing",
+    "url": "https://elixir-lang.org/blog/2026/06/03/elixir-v1-20-0-released/",
+    "entities": [
+      "elixir",
+      "gradual typing",
+      "programming languages",
+      "functional programming"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "SWOT satellite accuracy boosted 60% by predicting 'unpredictable' tides",
+    "url": "https://www.reddit.com/r/science/comments/1tvyjzl/we_improved_nasas_swot_ocean_satellite/",
+    "entities": [
+      "climate science",
+      "satellite technology",
+      "oceanography",
+      "nasa",
+      "machine learning"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "AI Use Linked to Rising Failure Rates in Berkeley CS Classes",
+    "url": "https://www.dailycal.org/news/campus/academics/failing-grades-soar-as-professors-see-greater-ai-usage-dwindling-math-skills-in-uc-berkeley/article_16fad0bf-02cb-4b8c-8d88-888ffd9f8608.html",
+    "entities": [
+      "ai in education",
+      "computer science",
+      "academic integrity",
+      "grade inflation",
+      "standardized testing"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "Google Releases Gemma 4 12B with Encoder-Free Multimodal Design",
+    "url": "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemma-4-12b/",
+    "entities": [
+      "ai/ml",
+      "multimodal",
+      "google",
+      "open-source",
+      "model architecture"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "Software Engineer Shares Anti-NMDA Receptor Encephalitis Diagnosis",
+    "url": "https://burntsushi.net/encephalitis/",
+    "entities": [
+      "autoimmune disease",
+      "neurology",
+      "rare disease",
+      "healthcare",
+      "personal story"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "Uber Caps AI Tool Spending at $1,500/Month per Tool",
+    "url": "https://simonwillison.net/2026/Jun/3/uber-caps-usage/#atom-everything",
+    "entities": [
+      "ai",
+      "cost management",
+      "enterprise",
+      "coding agents",
+      "uber"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "DaVinci Resolve 21 Adds Photo Management and Motion Graphics",
+    "url": "https://www.blackmagicdesign.com/products/davinciresolve/whatsnew",
+    "entities": [
+      "video editing",
+      "davinci resolve",
+      "ai",
+      "photo management",
+      "motion graphics"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "Espressif ESP32-S31: RISC-V with SIMD and BitScrambler",
+    "url": "https://www.espressif.com/en/products/socs/esp32-s31",
+    "entities": [
+      "esp32-s31",
+      "risc-v",
+      "embedded systems",
+      "simd",
+      "rust"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "Let's Encrypt Plans Post-Quantum TLS Certificates",
+    "url": "https://letsencrypt.org/2026/06/03/pq-certs",
+    "entities": [
+      "quantum computing",
+      "tls",
+      "certificate authority",
+      "cryptography",
+      "post-quantum"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "NeurIPS Desk Rejects Papers Using Uncalibrated AI Detector",
+    "url": "https://www.reddit.com/r/MachineLearning/comments/1tvwctd/neurips_used_uncalibrated_ai_detector_for_desk/",
+    "entities": [
+      "ai ethics",
+      "academic publishing",
+      "neurips",
+      "ai detection",
+      "methodology"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "TorchDAE: PyTorch Library for Differentiable DAE Simulation",
+    "url": "https://www.reddit.com/r/MachineLearning/comments/1tvn4ux/torchdae_implicit_dae_solvers_with_index/",
+    "entities": [
+      "pytorch",
+      "differential algebraic equations",
+      "scientific machine learning",
+      "differentiable simulation",
+      "numerical methods"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "Top AI models fail classic Stroop test",
+    "url": "https://www.reddit.com/r/science/comments/1tvptdu/new_study_reveals_top_ai_models_gpt4o_claude_35/",
+    "entities": [
+      "ai",
+      "cognitive science",
+      "ai safety",
+      "reasoning",
+      "psychology"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
+    "title": "Semaglutide Slows Biological Aging in HIV Patients",
+    "url": "https://www.reddit.com/r/science/comments/1tvoc6b/semaglutide_a_glp1_weight_loss_drug_slowed/",
+    "entities": [
+      "semaglutide",
+      "aging",
+      "epigenetics",
+      "clinical trial",
+      "hiv"
+    ],
+    "date": "2026-06-04",
+    "issue_url": "https://github.com/Aurora-yang-git/workflow/issues/4"
+  },
+  {
     "title": "Google will pay SpaceX $920M per month for compute",
     "url": "https://techcrunch.com/2026/06/05/google-will-pay-spacex-920m-per-month-for-compute/",
-    "entities": ["spacex", "google", "cloud", "compute", "ai"],
+    "entities": [
+      "spacex",
+      "google",
+      "cloud",
+      "compute",
+      "ai"
+    ],
     "date": "2026-06-05",
     "issue_url": ""
   },
   {
     "title": "Former cyber executive turned whistleblower accuses IBM of covering up several data breaches",
     "url": "https://techcrunch.com/2026/06/05/former-cyber-executive-turned-whistleblower-accuses-ibm-of-covering-up-several-data-breaches/",
-    "entities": ["ibm", "breach", "security", "whistleblower"],
+    "entities": [
+      "ibm",
+      "breach",
+      "security",
+      "whistleblower"
+    ],
     "date": "2026-06-05",
     "issue_url": ""
   },
   {
     "title": "Google and FBI warn of ransomware group that sends fake IT workers to hack victims in person",
     "url": "https://techcrunch.com/2026/06/05/google-and-fbi-warn-of-ransomware-group-that-sends-fake-it-workers-to-hack-victims-in-person/",
-    "entities": ["ransomware", "fbi", "google", "security", "hack"],
+    "entities": [
+      "ransomware",
+      "fbi",
+      "google",
+      "security",
+      "hack"
+    ],
     "date": "2026-06-05",
     "issue_url": ""
   },
   {
     "title": "NSA said to be readying Anthropic's Mythos for use in cyber operations",
     "url": "https://techcrunch.com/2026/06/05/nsa-said-to-be-readying-anthropics-mythos-for-use-in-cyber-operations/",
-    "entities": ["anthropic", "nsa", "ai", "security", "mythos"],
+    "entities": [
+      "anthropic",
+      "nsa",
+      "ai",
+      "security",
+      "mythos"
+    ],
     "date": "2026-06-05",
     "issue_url": ""
   },
   {
     "title": "Reid Hoffman is leaving Microsoft's board to go 'founder mode' with startup Manus",
     "url": "https://techcrunch.com/2026/06/05/reid-hoffman-is-leaving-microsofts-board-to-go-founder-mode-with-startup-manus/",
-    "entities": ["microsoft", "reid-hoffman", "startup", "ai"],
+    "entities": [
+      "microsoft",
+      "reid-hoffman",
+      "startup",
+      "ai"
+    ],
     "date": "2026-06-05",
     "issue_url": ""
   },
   {
     "title": "OpenAI unveils Lockdown Mode to protect sensitive data from prompt injection attacks",
     "url": "https://techcrunch.com/2026/06/06/openai-unveils-lockdown-mode-to-protect-sensitive-data-from-prompt-injection-attacks/",
-    "entities": ["openai", "security", "ai", "prompt-injection"],
+    "entities": [
+      "openai",
+      "security",
+      "ai",
+      "prompt-injection"
+    ],
     "date": "2026-06-06",
     "issue_url": ""
   },
   {
     "title": "Hacked, leaked, and held for ransom: The worst breaches of 2026 so far",
     "url": "https://techcrunch.com/2026/06/07/the-worst-hacks-and-breaches-of-2026-so-far/",
-    "entities": ["breach", "ransomware", "security", "hack"],
+    "entities": [
+      "breach",
+      "ransomware",
+      "security",
+      "hack"
+    ],
     "date": "2026-06-07",
     "issue_url": ""
   },
   {
     "title": "Microsoft's open source tools were hacked to steal passwords of AI developers",
     "url": "https://techcrunch.com/2026/06/08/microsofts-open-source-tools-were-hacked-to-steal-passwords-of-ai-developers/",
-    "entities": ["microsoft", "hack", "security", "ai", "open-source"],
+    "entities": [
+      "microsoft",
+      "hack",
+      "security",
+      "ai",
+      "open-source"
+    ],
     "date": "2026-06-08",
     "issue_url": ""
   },
   {
     "title": "WhatsApp says it caught new spyware attacks linked to NSO Group in violation of court order",
     "url": "https://techcrunch.com/2026/06/08/whatsapp-says-it-caught-new-spyware-attacks-linked-to-nso-group-in-violation-of-court-order/",
-    "entities": ["whatsapp", "nso", "spyware", "security", "meta"],
+    "entities": [
+      "whatsapp",
+      "nso",
+      "spyware",
+      "security",
+      "meta"
+    ],
     "date": "2026-06-08",
     "issue_url": ""
   },
   {
     "title": "Massachusetts votes to pass new privacy rights bill that bans sale of precise location data",
     "url": "https://techcrunch.com/2026/06/08/massachusetts-votes-to-pass-new-privacy-rights-bill-that-bans-sale-of-precise-location-data/",
-    "entities": ["privacy", "regulation", "location-data", "policy"],
+    "entities": [
+      "privacy",
+      "regulation",
+      "location-data",
+      "policy"
+    ],
     "date": "2026-06-08",
     "issue_url": ""
   },
   {
     "title": "WWDC 2026: Everything announced on Siri AI, iOS 27, Apple Intelligence, and more",
     "url": "https://techcrunch.com/2026/06/09/wwdc-2026-everything-announced-on-siri-ai-os-27-apple-intelligence-and-more/",
-    "entities": ["apple", "wwdc", "siri", "ios", "ai"],
+    "entities": [
+      "apple",
+      "wwdc",
+      "siri",
+      "ios",
+      "ai"
+    ],
     "date": "2026-06-09",
     "issue_url": ""
   },
   {
     "title": "Anthropic's Claude Fable 5 is a version of Mythos the public can access today",
     "url": "https://techcrunch.com/2026/06/09/anthropics-claude-fable-5-is-a-version-of-mythos-the-public-can-access-today/",
-    "entities": ["anthropic", "claude", "fable", "ai", "llm"],
+    "entities": [
+      "anthropic",
+      "claude",
+      "fable",
+      "ai",
+      "llm"
+    ],
     "date": "2026-06-09",
     "issue_url": ""
   },
   {
     "title": "Google just fired a warning shot in the AI subscription price wars",
     "url": "https://techcrunch.com/2026/06/09/google-just-fired-a-warning-shot-in-the-ai-subscription-price-wars/",
-    "entities": ["google", "ai", "subscription", "pricing", "competition"],
+    "entities": [
+      "google",
+      "ai",
+      "subscription",
+      "pricing",
+      "competition"
+    ],
     "date": "2026-06-09",
     "issue_url": ""
   },
   {
     "title": "CISA gives US federal agencies three days to fix a VPN bug under attack by a ransomware gang",
     "url": "https://techcrunch.com/2026/06/09/cisa-gives-us-federal-agencies-three-days-to-fix-a-vpn-bug-under-attack-by-a-ransomware-gang/",
-    "entities": ["cisa", "vpn", "ransomware", "security", "government"],
+    "entities": [
+      "cisa",
+      "vpn",
+      "ransomware",
+      "security",
+      "government"
+    ],
     "date": "2026-06-09",
     "issue_url": ""
   },
   {
     "title": "xAI fired an engineer who raised alarms about Grok safety, new lawsuit claims",
     "url": "https://techcrunch.com/2026/06/10/xai-fired-an-engineer-who-raised-alarms-about-grok-safety-new-lawsuit-claims/",
-    "entities": ["xai", "grok", "safety", "ai", "elon-musk"],
+    "entities": [
+      "xai",
+      "grok",
+      "safety",
+      "ai",
+      "elon-musk"
+    ],
     "date": "2026-06-10",
     "issue_url": ""
   },
   {
     "title": "Cybercriminals claim breach of Oracle PeopleSoft servers at 100-plus organizations",
     "url": "https://techcrunch.com/2026/06/10/cybercriminals-claim-breach-of-oracle-peoplesoft-servers-at-100-plus-organizations/",
-    "entities": ["oracle", "breach", "security", "peoplesoft"],
+    "entities": [
+      "oracle",
+      "breach",
+      "security",
+      "peoplesoft"
+    ],
     "date": "2026-06-10",
     "issue_url": ""
   },
   {
     "title": "North Koreans behind nearly half of US tech industry hacks, says CrowdStrike",
     "url": "https://techcrunch.com/2026/06/10/north-koreans-behind-nearly-half-of-us-tech-industry-hacks-says-crowdstrike/",
-    "entities": ["north-korea", "hack", "crowdstrike", "security", "nation-state"],
+    "entities": [
+      "north-korea",
+      "hack",
+      "crowdstrike",
+      "security",
+      "nation-state"
+    ],
     "date": "2026-06-10",
     "issue_url": ""
   },
   {
     "title": "ServiceNow tells customers a bug left some of their data exposed to the internet",
     "url": "https://techcrunch.com/2026/06/10/servicenow-tells-customers-a-bug-left-some-of-their-data-exposed-to-the-internet/",
-    "entities": ["servicenow", "breach", "security", "cloud"],
+    "entities": [
+      "servicenow",
+      "breach",
+      "security",
+      "cloud"
+    ],
     "date": "2026-06-10",
     "issue_url": ""
   },
   {
     "title": "Anthropic's Dario Amodei has just one direct report",
     "url": "https://techcrunch.com/2026/06/10/anthropics-dario-amodei-has-just-one-direct-report/",
-    "entities": ["anthropic", "dario-amodei", "management", "ai"],
+    "entities": [
+      "anthropic",
+      "dario-amodei",
+      "management",
+      "ai"
+    ],
     "date": "2026-06-10",
     "issue_url": ""
   },
   {
     "title": "Fresh off bond sale, Amazon borrows $17.5B from banks as AI spending continues",
     "url": "https://techcrunch.com/2026/06/10/fresh-off-bond-sale-amazon-borrows-17-5-billion-from-banks-as-ai-spending-continues/",
-    "entities": ["amazon", "ai", "cloud", "spending", "aws"],
+    "entities": [
+      "amazon",
+      "ai",
+      "cloud",
+      "spending",
+      "aws"
+    ],
     "date": "2026-06-10",
     "issue_url": ""
   },
   {
     "title": "Cybersecurity researchers aren't happy about the guardrails on Anthropic's Fable",
     "url": "https://techcrunch.com/2026/06/10/cybersecurity-researchers-arent-happy-about-the-guardrails-on-anthropics-fable/",
-    "entities": ["anthropic", "claude", "fable", "security", "ai-safety"],
+    "entities": [
+      "anthropic",
+      "claude",
+      "fable",
+      "security",
+      "ai-safety"
+    ],
     "date": "2026-06-10",
     "issue_url": ""
   },
   {
     "title": "SpaceX officially prices shares at $135 in the largest IPO ever",
     "url": "https://techcrunch.com/2026/06/11/spacex-officially-prices-shares-at-135-in-the-largest-ipo-ever/",
-    "entities": ["spacex", "ipo", "elon-musk", "space"],
+    "entities": [
+      "spacex",
+      "ipo",
+      "elon-musk",
+      "space"
+    ],
     "date": "2026-06-11",
     "issue_url": ""
   },
   {
     "title": "SpaceX SPV investors won't know their true holdings until post-IPO lock-ups lift",
     "url": "https://techcrunch.com/2026/06/11/spacex-spv-investors-wont-know-their-true-holdings-until-post-ipo-lock-ups-lift/",
-    "entities": ["spacex", "ipo", "investors", "spv"],
+    "entities": [
+      "spacex",
+      "ipo",
+      "investors",
+      "spv"
+    ],
     "date": "2026-06-11",
     "issue_url": ""
   },
   {
     "title": "Quantum Space's military SPAC is trying to catch SpaceX's IPO wave",
     "url": "https://techcrunch.com/2026/06/11/quantum-spaces-military-spac-is-trying-to-catch-spacexs-ipo-wave/",
-    "entities": ["spacex", "space", "spac", "military", "defense"],
+    "entities": [
+      "spacex",
+      "space",
+      "spac",
+      "military",
+      "defense"
+    ],
     "date": "2026-06-11",
     "issue_url": ""
   },
   {
     "title": "Oracle warns of security bug that hackers abused to breach 100+ companies",
     "url": "https://techcrunch.com/2026/06/11/oracle-warns-of-security-bug-that-hackers-abused-to-breach-100-companies/",
-    "entities": ["oracle", "breach", "security", "hack"],
+    "entities": [
+      "oracle",
+      "breach",
+      "security",
+      "hack"
+    ],
     "date": "2026-06-11",
     "issue_url": ""
   },
   {
     "title": "South Korea hits Coupang with $400M+ fine for data breach that affected millions",
     "url": "https://techcrunch.com/2026/06/11/south-korea-hits-coupang-with-400m-fine-for-data-breach-that-affected-millions/",
-    "entities": ["south-korea", "coupang", "breach", "privacy", "regulation"],
+    "entities": [
+      "south-korea",
+      "coupang",
+      "breach",
+      "privacy",
+      "regulation"
+    ],
     "date": "2026-06-11",
     "issue_url": ""
   },
   {
     "title": "Anthropic taps TCS to scale its enterprise AI deployments",
     "url": "https://techcrunch.com/2026/06/11/anthropic-taps-tcs-to-scale-its-enterprise-ai-deployments/",
-    "entities": ["anthropic", "tcs", "enterprise", "ai"],
+    "entities": [
+      "anthropic",
+      "tcs",
+      "enterprise",
+      "ai"
+    ],
     "date": "2026-06-11",
     "issue_url": ""
   },
   {
     "title": "Jeff Bezos's Prometheus raises $12B to build an 'artificial general engineer' for the physical world",
     "url": "https://techcrunch.com/2026/06/11/jeff-bezoss-prometheus-raises-12b-to-build-an-artificial-general-engineer-for-the-physical-world/",
-    "entities": ["jeff-bezos", "prometheus", "ai", "robotics", "agi"],
+    "entities": [
+      "jeff-bezos",
+      "prometheus",
+      "ai",
+      "robotics",
+      "agi"
+    ],
     "date": "2026-06-11",
     "issue_url": ""
   }
