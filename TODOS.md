@@ -36,6 +36,8 @@
 
 - [ ] **DingTalk Q&A reply** — Support Q&A via DingTalk (not just GitHub Issue comments). Requires a DingTalk webhook inbound listener. Significant infra change; defer until DingTalk engagement warrants it.
 
-- [ ] **Weekly Arc Q&A** — Extend Q&A responder to answer questions on `Weekly Arc` issues too. Small change: add `contains(github.event.issue.title, 'Weekly Arc')` to the workflow condition. Defer until arc issues have comment volume.
+- [ ] **Weekly Arc Q&A** — Extend Q&A responder to answer questions on `Weekly Arc` issues too. Implement arc-aware context: parse date range from title, load matching entries from memory.json, run same identify+fetch pipeline as daily Q&A. Design approved 2026-06-16; implementation pending.
 
 - [ ] **Per-article URL citation** — Include the source article URL in Q&A replies. Requires storing URLs in the issue body (currently not present in structured form). Revisit when digest format includes per-article links.
+
+- [ ] **`actions/checkout@v6` in qa-responder.yml** — `qa-responder.yml` uses `actions/checkout@v6` which does not exist (latest stable is `@v4`). Fix separately from arc Q&A feature work.
