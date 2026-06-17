@@ -11,7 +11,7 @@ jobs:
       github.actor != 'github-actions[bot]' &&
       github.event.issue.pull_request == null &&
       (github.event.comment.author_association == 'OWNER' || github.event.comment.author_association == 'COLLABORATOR' || github.event.comment.author_association == 'MEMBER') &&
-      (contains(github.event.issue.title, '每日速递') || contains(github.event.issue.title, 'Daily Digest'))
+      (contains(github.event.issue.title, '每日速递') || contains(github.event.issue.title, 'Daily Digest') || contains(github.event.issue.title, 'Weekly Arc'))
     runs-on: ubuntu-latest
     timeout-minutes: 5
     permissions:
@@ -24,7 +24,7 @@ jobs:
           python-version: "3.12"
 
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Answer question
         env:

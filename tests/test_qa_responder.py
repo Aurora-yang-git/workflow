@@ -380,10 +380,14 @@ def test_main_posts_answer_with_disclaimer(monkeypatch):
     assert "verify" in posted_bodies[0].lower()
 
 
-def test_main_skips_non_digest_issue(monkeypatch):
+@pytest.mark.parametrize("title", [
+    "Pull Request: fix typo",
+    "Arc Reactor Announcement — not an arc digest",
+])
+def test_main_skips_non_digest_issue(monkeypatch, title):
     _mock_env(monkeypatch)
     import qa_responder
-    monkeypatch.setattr(qa_responder, "ISSUE_TITLE", "Pull Request: fix typo")
+    monkeypatch.setattr(qa_responder, "ISSUE_TITLE", title)
 
     with patch("urllib.request.urlopen") as mock:
         qa_responder.main()
@@ -438,3 +442,220 @@ def test_main_handles_deepseek_error_gracefully(monkeypatch):
 
     assert len(posted_bodies) == 1
     assert "try again" in posted_bodies[0].lower()
+
+
+# ── _load_arc_articles ─────────────────────────────────────────────────────────
+
+ARC_TITLE = "Weekly Arc — 2026-06-09 to 2026-06-15"
+
+SAMPLE_MEMORY = [
+    {"title": "SpaceX IPO", "url": "https://example.com/spacex", "date": "2026-06-09", "entities": [], "issue_url": ""},
+    {"title": "OpenAI raises $10B", "url": "https://example.com/openai", "date": "2026-06-12", "entities": [], "issue_url": ""},
+    {"title": "Google AI safety", "url": "https://example.com/google", "date": "2026-06-15", "entities": [], "issue_url": ""},
+    {"title": "Old news", "url": "https://example.com/old", "date": "2026-06-08", "entities": [], "issue_url": ""},
+    {"title": "Future news", "url": "https://example.com/future", "date": "2026-06-16", "entities": [], "issue_url": ""},
+]
+
+
+def _write_memory(tmp_path, entries=None):
+    p = tmp_path / "memory.json"
+    p.write_text(json.dumps(entries if entries is not None else SAMPLE_MEMORY))
+    return str(p)
+
+
+def test_load_arc_articles_parses_date_range(monkeypatch, tmp_path):
+    _mock_env(monkeypatch)
+    import qa_responder
+    monkeypatch.setattr(qa_responder, "MEMORY_PATH", _write_memory(tmp_path))
+
+    result = qa_responder._load_arc_articles(ARC_TITLE)
+    assert set(result.keys()) == {"SpaceX IPO", "OpenAI raises $10B", "Google AI safety"}
+    assert "Old news" not in result
+    assert "Future news" not in result
+
+
+def test_load_arc_articles_filters_by_week_boundary(monkeypatch, tmp_path):
+    _mock_env(monkeypatch)
+    import qa_responder
+    # Entries exactly on week_start and week_end must be included (inclusive)
+    entries = [
+        {"title": "Start", "url": "https://example.com/start", "date": "2026-06-09", "entities": [], "issue_url": ""},
+        {"title": "End", "url": "https://example.com/end", "date": "2026-06-15", "entities": [], "issue_url": ""},
+        {"title": "Before", "url": "https://example.com/before", "date": "2026-06-08", "entities": [], "issue_url": ""},
+        {"title": "After", "url": "https://example.com/after", "date": "2026-06-16", "entities": [], "issue_url": ""},
+    ]
+    monkeypatch.setattr(qa_responder, "MEMORY_PATH", _write_memory(tmp_path, entries))
+
+    result = qa_responder._load_arc_articles(ARC_TITLE)
+    assert "Start" in result
+    assert "End" in result
+    assert "Before" not in result
+    assert "After" not in result
+
+
+def test_load_arc_articles_returns_empty_on_no_match(monkeypatch, tmp_path):
+    _mock_env(monkeypatch)
+    import qa_responder
+    entries = [
+        {"title": "Unrelated", "url": "https://example.com/x", "date": "2026-05-01", "entities": [], "issue_url": ""},
+    ]
+    monkeypatch.setattr(qa_responder, "MEMORY_PATH", _write_memory(tmp_path, entries))
+
+    result = qa_responder._load_arc_articles(ARC_TITLE)
+    assert result == {}
+
+
+def test_load_arc_articles_graceful_io_error(monkeypatch, tmp_path):
+    _mock_env(monkeypatch)
+    import qa_responder
+    # Point to a nonexistent file
+    monkeypatch.setattr(qa_responder, "MEMORY_PATH", str(tmp_path / "nonexistent.json"))
+
+    result = qa_responder._load_arc_articles(ARC_TITLE)
+    assert result == {}
+
+
+def test_load_arc_articles_graceful_json_error(monkeypatch, tmp_path):
+    _mock_env(monkeypatch)
+    import qa_responder
+    bad_file = tmp_path / "memory.json"
+    bad_file.write_text("not valid json {{{{")
+    monkeypatch.setattr(qa_responder, "MEMORY_PATH", str(bad_file))
+
+    result = qa_responder._load_arc_articles(ARC_TITLE)
+    assert result == {}
+
+
+def test_load_arc_articles_filters_empty_title_url(monkeypatch, tmp_path):
+    _mock_env(monkeypatch)
+    import qa_responder
+    entries = [
+        {"title": "", "url": "https://example.com/a", "date": "2026-06-12", "entities": [], "issue_url": ""},
+        {"title": "Valid", "url": "", "date": "2026-06-12", "entities": [], "issue_url": ""},
+        {"title": "Good", "url": "https://example.com/good", "date": "2026-06-12", "entities": [], "issue_url": ""},
+    ]
+    monkeypatch.setattr(qa_responder, "MEMORY_PATH", _write_memory(tmp_path, entries))
+
+    result = qa_responder._load_arc_articles(ARC_TITLE)
+    assert result == {"Good": "https://example.com/good"}
+
+
+# ── main() arc path ────────────────────────────────────────────────────────────
+
+ARC_NARRATIVE = (
+    "## Story Arc 1: Space Race\n\nThis week SpaceX and Blue Origin competed for orbital contracts.\n\n"
+    "## Story Arc 2: AI Safety\n\nRegulators pushed for new AI transparency rules."
+)
+
+
+def test_main_arc_bad_title_posts_error_comment(monkeypatch):
+    _mock_env(monkeypatch)
+    import qa_responder
+    monkeypatch.setattr(qa_responder, "ISSUE_TITLE", "Weekly Arc — badly formatted")
+
+    posted_bodies = []
+
+    def mock_urlopen(req, timeout=None):
+        if "issues/42/comments" in req.full_url:
+            posted_bodies.append(json.loads(req.data.decode())["body"])
+            return _gh_comment_response()
+        return _gh_issue_response(body=ARC_NARRATIVE)
+
+    with patch("urllib.request.urlopen", side_effect=mock_urlopen):
+        qa_responder.main()
+
+    assert len(posted_bodies) == 1
+    assert "parse" in posted_bodies[0].lower() or "date range" in posted_bodies[0].lower()
+    # Ensure no DeepSeek call was made (no answer posted)
+    assert "arc digest" not in posted_bodies[0].lower()
+
+
+def test_main_arc_path_empty_articles(monkeypatch, tmp_path):
+    _mock_env(monkeypatch)
+    import qa_responder
+    monkeypatch.setattr(qa_responder, "ISSUE_TITLE", ARC_TITLE)
+    # memory.json with no entries in the arc's week
+    monkeypatch.setattr(qa_responder, "MEMORY_PATH", _write_memory(tmp_path, []))
+
+    posted_bodies = []
+    identify_calls = [0]
+
+    def mock_urlopen(req, timeout=None):
+        if "issues/42/comments" in req.full_url:
+            posted_bodies.append(json.loads(req.data.decode())["body"])
+            return _gh_comment_response()
+        if "deepseek" in req.full_url:
+            return _deepseek_response("Arc answer from narrative only.")
+        return _gh_issue_response(body=ARC_NARRATIVE)
+
+    with patch("urllib.request.urlopen", side_effect=mock_urlopen):
+        with patch("qa_responder._identify_article", wraps=qa_responder._identify_article) as mock_identify:
+            qa_responder.main()
+            assert mock_identify.call_count == 0, "_identify_article should not be called when articles is {}"
+
+    assert len(posted_bodies) == 1
+    assert "arc digest" in posted_bodies[0]
+
+
+def test_main_arc_path(monkeypatch, tmp_path):
+    _mock_env(monkeypatch)
+    import qa_responder
+    monkeypatch.setattr(qa_responder, "ISSUE_TITLE", ARC_TITLE)
+    monkeypatch.setattr(qa_responder, "MEMORY_PATH", _write_memory(tmp_path))
+
+    posted_bodies = []
+    deepseek_payloads = []
+
+    def mock_urlopen(req, timeout=None):
+        url = req.full_url
+        if "issues/42/comments" in url:
+            posted_bodies.append(json.loads(req.data.decode())["body"])
+            return _gh_comment_response()
+        if "deepseek" in url:
+            payload = json.loads(req.data.decode())
+            deepseek_payloads.append(payload)
+            if payload.get("max_tokens") == 100:
+                return _deepseek_response("SpaceX IPO")
+            return _deepseek_response("**Based on 'SpaceX IPO':** Arc answer here.")
+        if "example.com/spacex" in url:
+            return _article_response()
+        return _gh_issue_response(body=ARC_NARRATIVE)
+
+    with patch("urllib.request.urlopen", side_effect=mock_urlopen):
+        qa_responder.main()
+
+    assert len(posted_bodies) == 1
+    assert "arc digest" in posted_bodies[0]
+    assert "today's digest" not in posted_bodies[0]  # D5: negative regression guard
+
+    # Arc system prompt must be used (not daily prompt)
+    answer_payload = next(p for p in deepseek_payloads if p.get("max_tokens") != 100)
+    system_content = answer_payload["messages"][0]["content"]
+    assert "arc digest" in system_content.lower()
+    assert "daily news digest" not in system_content.lower()
+
+
+def test_main_daily_uses_default_system_prompt(monkeypatch):
+    _mock_env(monkeypatch)
+    import qa_responder
+
+    captured_payloads = []
+
+    def mock_urlopen(req, timeout=None):
+        if "issues/42/comments" in req.full_url:
+            return _gh_comment_response()
+        if "deepseek" in req.full_url:
+            payload = json.loads(req.data.decode())
+            captured_payloads.append(payload)
+            if payload.get("max_tokens") == 100:
+                return _deepseek_response("NONE")
+            return _deepseek_response("Daily answer.")
+        return _gh_issue_response(body=SAMPLE_DIGEST)
+
+    with patch("urllib.request.urlopen", side_effect=mock_urlopen):
+        qa_responder.main()
+
+    # Identity check: system prompt must be exactly _SYSTEM_PROMPT (D8)
+    answer_payload = next(p for p in captured_payloads if p.get("max_tokens") != 100)
+    system_content = answer_payload["messages"][0]["content"]
+    assert system_content == qa_responder._SYSTEM_PROMPT
