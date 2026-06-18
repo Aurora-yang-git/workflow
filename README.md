@@ -7,54 +7,64 @@ Every morning it fetches and scores the day's tech news, posts a bilingual (中�
 ## System flowchart
 
 ```
-                        ┌─────────────────────────────────────────────────┐
-                        │             GitHub Actions (cron)               │
-                        └───────────────────┬─────────────────────────────┘
-                                            │
-               ┌────────────────────────────┼────────────────────────────┐
-               │  Daily — 8 AM UTC          │          Sunday — 10 AM UTC │
-               ▼                            │                             ▼
-  ┌────────────────────────┐                │           ┌─────────────────────────┐
-  │   Horizon (DeepSeek)   │                │           │    arc_digest.py        │
-  │  HackerNews · Reddit   │                │           │  reads memory.json      │
-  │  RSS · NewsAPI         │                │           │  → DeepSeek             │
-  └──────────┬─────────────┘                │           │  "top 3 story arcs      │
-             │ summaries/                   │           │   this week"            │
-             ▼                              │           └──────────┬──────────────┘
-  ┌──────────────────────┐                  │                      │ arc narrative
-  │  memory_manager.py   │                  │                      ▼
-  │  · dedup             │           ┌──────┴──────────────────────────────┐
-  │  · entity extract    │           │         post_issue.py               │
-  │  · follow-up annot.  │──────────▶│  create GitHub Issue (EN + ZH)      │
-  └──────────────────────┘           │  send DingTalk ActionCard           │
-             │                       └──────────────────────────────────────┘
-             │ commit                               │
-             ▼                                      │ Issue URL
-  ┌──────────────────────┐              ┌───────────▼───────────┐
-  │   memory.json        │              │   GitHub Issues tab    │
-  │  (365-day rolling)   │              │   (public or private)  │
-  └──────────────────────┘              └───────────┬───────────┘
-                                                    │ user leaves comment
+             ┌───────────────────────────────────────┐
+             │ GitHub Actions    ·    cron scheduler │
+             └───────────────────────────────────────┘
+             ┌───────────────────┴──────────────────┐
+  Sunday     │                                      │ Daily
+  10:00 UTC                                           08:00 UTC
+  ┌─────────────────────┐     ┌───────────────────────────────────────────┐
+  │ arc_digest.py       │     │ Horizon   (uv run horizon --hours 24)     │
+  │ reads memory.json   │     │                                           │
+  │ (past 7 days)       │     │ 1) Scrape last 24 h:                      │
+  │ -> DeepSeek:        │     │       HackerNews (top 20, score >= 100)   │
+  │ "top 3 arcs"        │     │       Reddit  ·  RSS  ·  NewsAPI          │
+  │ skip if < 5         │     │ 2) Merge same-URL duplicates              │
+  └──────────│──────────┘     │ 3) DeepSeek scores each item   0-10       │
+             │                │ 4) Keep score >= 7.5, sort high -> low    │
+             │                │ 5) Semantic dedup (drop same topic)       │
+             │                │ 6) Enrich: search related + background    │
+             │                │ 7) DeepSeek writes EN + ZH summary        │
+             │                └─────────────────────│─────────────────────┘
+             │                                      │ summaries/*.md
+             │                                      ▼
+             │                ┌───────────────────────────────────────────┐          ┌─────────────────────────┐
+             │                │ memory_manager.py                         │  commit  │ memory.json             │
+             │                │   · dedup vs. stored memory               │────────▶ │ (365-day rolling store) │
+             │                │   · entity extraction                     │          └─────────────────────────┘
+             │                │   · follow-up annotation                  │
+             │                └─────────────────────│─────────────────────┘
+             │                                      │
+             │                                      ▼
+             │                ┌───────────────────────────────────────────┐
+             │                │ post_issue.py                             │
+             │                │ create GitHub Issue (EN + ZH)             │
+             │                │ send DingTalk ActionCard                  │
+             │                └─────────────────────│─────────────────────┘
+             │                                      │ Issue URL
+             └─Issue + DingTalk card────────────────┤
                                                     ▼
-                                        ┌───────────────────────┐
-                                        │  qa-responder.yml     │
-                                        │  (on: issue_comment)  │
-                                        └──────────┬────────────┘
-                                                   │
-                                                   ▼
-                                        ┌───────────────────────┐
-                                        │   qa_responder.py     │
-                                        │  1. fetch issue body  │
-                                        │  2. DeepSeek:         │
-                                        │     · find article    │
-                                        │     · cite + answer   │
-                                        │     · bilingual reply │
-                                        └──────────┬────────────┘
-                                                   │ bot reply comment
-                                                   ▼
-                                        ┌───────────────────────┐
-                                        │  GitHub Issue thread  │
-                                        └───────────────────────┘
+                              ┌───────────────────────────────────────────┐
+                              │ GitHub Issues tab                         │
+                              │ (daily digest  ·  weekly arc)             │
+                              └─────────────────────│─────────────────────┘
+                                                    │ user comments a question
+                                                    ▼
+                              ┌───────────────────────────────────────────┐
+                              │ qa-responder.yml   (on: issue_comment)    │
+                              └─────────────────────│─────────────────────┘
+                                                    ▼
+                              ┌───────────────────────────────────────────┐
+                              │ qa_responder.py                           │
+                              │ 1. read issue body as context             │
+                              │ 2. DeepSeek: find article · cite · answer │
+                              │ 3. reply in the asker's language          │
+                              └─────────────────────│─────────────────────┘
+                                                    │ bot reply comment
+                                                    ▼
+                              ┌───────────────────────────────────────────┐
+                              │ GitHub Issue thread                       │
+                              └───────────────────────────────────────────┘
 ```
 
 ## Features
@@ -145,6 +155,28 @@ Horizon/
   data/summaries/           # Generated markdown summaries (EN + ZH)
 ```
 
+## Tech stack
+
+| Layer | Choice |
+|---|---|
+| Language | Python 3.12+ (managed with [uv](https://github.com/astral-sh/uv)) |
+| AI | DeepSeek API (scoring, arc narrative, Q&A) |
+| Aggregation | Horizon framework (HackerNews · Reddit · RSS · NewsAPI) |
+| Runtime | GitHub Actions (cron + `issue_comment` triggers) — no servers |
+| Delivery | GitHub Issues (EN + ZH) · DingTalk ActionCard |
+| Testing | pytest (fully network-mocked) |
+
+## Local development
+
+The pipeline is designed to run on GitHub Actions, but every script runs locally too.
+
+```bash
+uv sync               # install dev dependencies (pytest)
+uv run pytest         # run the full suite — no network or API keys needed
+```
+
+Tests insert `scripts/` onto the path themselves and mock all HTTP, so they pass offline. To exercise a script against the real APIs, export the secrets from [Required secrets](#required-secrets) as environment variables before running it.
+
 ## Debugging
 
 **DingTalk card didn't arrive**
@@ -174,3 +206,7 @@ DINGTALK_WEBHOOK   — morning card + Sunday arc card (optional)
 NEWS_API_KEY       — NewsAPI source (optional, broadens coverage)
 GITHUB_TOKEN       — issue creation, Q&A replies, memory commits (built-in)
 ```
+
+## License
+
+No top-level `LICENSE` file detected — add one to clarify how others may use this project. Note that the bundled `Horizon/` framework ships under its own license (`Horizon/LICENSE`).
